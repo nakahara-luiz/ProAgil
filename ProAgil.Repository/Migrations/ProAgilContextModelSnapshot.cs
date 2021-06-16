@@ -157,7 +157,7 @@ namespace ProAgil.Repository.Migrations
             modelBuilder.Entity("ProAgil.Domain.Entity.Lote", b =>
                 {
                     b.HasOne("ProAgil.Domain.Entity.Evento", "Evento")
-                        .WithMany("Lote")
+                        .WithMany("Lotes")
                         .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -201,7 +201,7 @@ namespace ProAgil.Repository.Migrations
 
             modelBuilder.Entity("ProAgil.Domain.Entity.Evento", b =>
                 {
-                    b.Navigation("Lote");
+                    b.Navigation("Lotes");
 
                     b.Navigation("PalestrantesEventos");
 

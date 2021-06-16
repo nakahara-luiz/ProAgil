@@ -22,7 +22,7 @@ namespace ProAgil.Repository
         {
             _context.Update(entity);
         }
-        public void HttpDelete<T>(T entity) where T : class
+        public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
         }
@@ -30,16 +30,27 @@ namespace ProAgil.Repository
         {
             return (await _context.SaveChangesAsync()) > 0;
         }
-        public Task<Evento[]> GetAllEventoAsync(bool includePalestrantes)
+        public async Task<Evento[]> GetAllEventoAsync(bool includePalestrantes)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Evento> query = _context.Eventos
+                .Include(e => e.Lotes)
+                .Include(e => e.RedesSociais);
+
+            if (includePalestrantes) {
+                query = query.Include(p => p.PalestrantesEventos)
+                    .ThenInclude(pe => pe.Palestrante);
+            }
+
+            query = query.OrderByDescending(e => e.Data);
+
+            return await query.ToArrayAsync();
         }
 
         //Evento
         public async Task<Evento> GetAllEventoAsyncById(int EventoId, bool includePalestrantes)
         {
             IQueryable<Evento> query = _context.Eventos
-                .Include(e => e.Lote)
+                .Include(e => e.Lotes)
                 .Include(e => e.RedesSociais);
 
             if (includePalestrantes) {
@@ -55,7 +66,7 @@ namespace ProAgil.Repository
         public async Task<Evento[]> GetAllEventoAsyncByTema(string tema, bool includePalestrantes)
         {
             IQueryable<Evento> query = _context.Eventos
-                .Include(e => e.Lote)
+                .Include(e => e.Lotes)
                 .Include(e => e.RedesSociais);
 
             if (includePalestrantes) {
