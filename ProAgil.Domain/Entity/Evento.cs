@@ -13,7 +13,7 @@ namespace ProAgil.Domain.Entity
         public string ImagemURL { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-        public IList<Lote> Lote { get; set; }
+        public IList<Lote> Lotes { get; set; }
         public IList<RedeSocial> RedesSociais { get; set; }
         public IList<PalestranteEvento> PalestrantesEventos { get; set; }
     }
