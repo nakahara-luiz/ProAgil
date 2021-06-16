@@ -10,8 +10,8 @@ using ProAgil.Repository.Data;
 namespace ProAgil.Repository.Migrations
 {
     [DbContext(typeof(ProAgilContext))]
-    [Migration("20210611005252_init")]
-    partial class init
+    [Migration("20210616005505_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,7 +159,7 @@ namespace ProAgil.Repository.Migrations
             modelBuilder.Entity("ProAgil.Domain.Entity.Lote", b =>
                 {
                     b.HasOne("ProAgil.Domain.Entity.Evento", "Evento")
-                        .WithMany("Lote")
+                        .WithMany("Lotes")
                         .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -203,7 +203,7 @@ namespace ProAgil.Repository.Migrations
 
             modelBuilder.Entity("ProAgil.Domain.Entity.Evento", b =>
                 {
-                    b.Navigation("Lote");
+                    b.Navigation("Lotes");
 
                     b.Navigation("PalestrantesEventos");
 
